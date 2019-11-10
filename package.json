@@ -1,0 +1,29 @@
+{
+  "name": "schema-ai",
+  "version": "0.0.1",
+  "description": "schema building robot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/espaciomore/schema-ai.git"
+  },
+  "author": "Manuel A. Cerda R.",
+  "license": "AGPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/espaciomore/schema-ai/issues"
+  },
+  "homepage": "https://github.com/espaciomore/schema-ai#readme",
+  "dependencies": {
+    "body-parser": "1.7.0",
+    "express": "^4.17.1",
+    "node-uuid": "1.4.8",
+    "pg": "7.12.1",
+    "promise": "8.0.3",
+    "swagger-ui-express": "2.0.13",
+    "sync-request": "4.0.2"
+  }
+}
