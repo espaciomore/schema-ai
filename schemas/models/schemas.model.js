@@ -3,7 +3,7 @@ const {Pool} = require('pg');
 const pool = new Pool(config.db_connection);
 
 exports.createTable = () => {
-  	return Promise.resolve(() => {
+  	return new Promise((resolve,reject) => {
 	  	const queryText =
 		`CREATE TABLE IF NOT EXISTS
 		  schemas (
@@ -17,42 +17,40 @@ exports.createTable = () => {
 		)`;
 		let response = pool.query(queryText);
 		response.then(() => {
-		  console.log('table created')
+		  resolve('table created');
 		});
 		response.catch((err) => {
-		  console.log(err);
+		  reject(err);
 		});
 	});
 };
 
 exports.dropTable = () => {
-	return Promise.resolve(() => {
+	return new Promise((resolve,reject) => {
 	  const queryText = 'DROP TABLE IF EXISTS schemas';
 		let response = pool.query(queryText);
 		response.then(() => {
-		  console.log('table dropped');
+		  resolve('table dropped');
 		});
 		response.catch((err) => {
-		  console.log(err);
+		  reject(err);
 		});
 	});
 };
 
 exports.findSchema = (host, endpoint) => {
 	return pool.query(
-		'SELECT * FROM schemas WHERE host=$1 AND endpoint=$2',
-		[host, endpoint]);
+		'SELECT * FROM schemas WHERE host=$1 AND endpoint=$2', [host, endpoint]);
 }
 
 exports.findSchemaBy = (id) => {
 	return pool.query(
-		'SELECT * FROM schemas WHERE id=$1',
-		[id]);
+		'SELECT * FROM schemas WHERE id=$1', [id]);
 }
 
 exports.findAllSchemasBy = (host, endpoint, from, to) => {
 	return pool.query(
-		'SELECT * FROM schemas WHERE host=$1 OR endpoint=$2 AND updated_at BETWEEN $3 AND $4 ORDER BY updated_at DESC',
+		'SELECT * FROM schemas WHERE host=$1 OR endpoint=$2 OR updated_at BETWEEN $3 AND $4 ORDER BY updated_at DESC',
 		[host, endpoint, from, to]);
 }
 

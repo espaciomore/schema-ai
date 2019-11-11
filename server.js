@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV === undefined){
+    process.env.NODE_ENV = 'dev';
+}
+
 const config = require('./common/config/env.config.js');
 
 const express = require('express');

@@ -1,12 +1,14 @@
 const SchemaModel = require('../models/schemas.model');
+const Console = require('../../helpers/console');
+console.log = Console.log;
 
-exports.init = (req, res) => {
-    SchemaModel.createTable();
+exports.init = async (req, res) => {
+    await SchemaModel.createTable();
     res.status(202);
 };
 
-exports.drop = (req, res) => {
-    SchemaModel.dropTable();
+exports.drop = async (req, res) => {
+    await SchemaModel.dropTable();
     res.status(202);
 };
 
