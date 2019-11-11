@@ -2,10 +2,10 @@
   "name": "schema-ai",
   "version": "0.0.1",
   "description": "schema building robot",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "test": "mocha",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,10 @@
   "homepage": "https://github.com/espaciomore/schema-ai#readme",
   "dependencies": {
     "body-parser": "1.7.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "express": "^4.17.1",
+    "mocha": "^6.2.2",
     "node-uuid": "1.4.8",
     "pg": "7.12.1",
     "promise": "8.0.3",

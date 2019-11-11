@@ -1,9 +1,23 @@
 const SchemaModel = require('../models/schemas.model');
 
+exports.init = (req, res) => {
+    SchemaModel.createTable();
+    res.status(202);
+};
+
+exports.drop = (req, res) => {
+    SchemaModel.dropTable();
+    res.status(202);
+};
+
 exports.get = (req, res) => {
     SchemaModel.findSchemaBy(req.params.id)
         .then((results) => {
-            res.status(200).send(results.rows[0]);
+            if(results !== undefined && results.rows.length == 0){
+                res.status(404).send({ message: 'no schema has been submitted'})
+            } else {
+                res.status(200).send(results.rows[0]);
+            } 
         })
         .catch((error) => {
             console.log(error)

@@ -1,6 +1,14 @@
 const SchemasController = require('./controllers/schemas.controller');
 
 exports.routesConfig = function (app) {
+    app.post('/schemas/up', [
+        SchemasController.init
+    ]);
+    
+    app.delete('/schemas/down', [
+        SchemasController.drop
+    ]);
+
     app.get('/schemas/get/:id', [
         SchemasController.get
     ]);
