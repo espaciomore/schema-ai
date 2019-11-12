@@ -40,7 +40,7 @@ app.use(function(req, res){
 });
 
 app.conn = app.listen(config.port, function () {
-  console.log('app listening at port %s', config.port);
+  console.log('app listening at port ' + config.port);
 });
 
 module.exports = app;
