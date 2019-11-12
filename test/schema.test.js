@@ -55,6 +55,16 @@ describe('on invalid route request', () => {
             })
             .catch((err) => { throw err; });
     });
+    it('should not accept an invalid endpoint', async () => {
+		await chai.request(server).post('/schemas/create')
+			.set('content-type', 'application/json')
+            .send({host:'foo',endpoint:null,response:{name:'yin'},schema:validSchema})
+            .then((res) => {
+                expect(res).to.have.status(400);
+                expect(res.body.message).to.equal('the request could not be processed');
+            })
+            .catch((err) => { throw err; });
+    });
 });
 
 describe('on empty database request', () => {
@@ -81,7 +91,8 @@ describe('on empty database request', () => {
 describe('on schema submit request', () => {
     it('should not submit without host', async () => {
         await chai.request(server).post('/schemas/submit')
-            .send(JSON.stringify({endpoint:'/bar',response:{name:'yin'}}))
+			.set('content-type', 'application/json')
+            .send({endpoint:'/bar',response:{name:'yin'}})
             .then((res) => {
                 expect(res).to.have.status(400);
                 expect(res.body.message).to.equal('the request was incomplete');
@@ -91,7 +102,8 @@ describe('on schema submit request', () => {
     });
     it('should not submit without endpoint', async () => {
         await chai.request(server).post('/schemas/submit')
-            .send(JSON.stringify({host:'foo',response:{name:'yin'}}))
+			.set('content-type', 'application/json')
+            .send({host:'foo',response:{name:'yin'}})
             .then((res) => {
                 expect(res).to.have.status(400);
                 expect(res.body.message).to.equal('the request was incomplete');
@@ -101,7 +113,8 @@ describe('on schema submit request', () => {
     });
     it('should not submit without response', async () => {
         await chai.request(server).post('/schemas/submit')
-            .send(JSON.stringify({host:'foo',endpoint:'/bar'}))
+			.set('content-type', 'application/json')
+            .send({host:'foo',endpoint:'/bar'})
             .then((res) => {
                 expect(res).to.have.status(400);
                 expect(res.body.message).to.equal('the request was incomplete');
@@ -115,7 +128,8 @@ describe('on schema submit request', () => {
 describe('on schema update request', () => {
     it('should not update without response', async () => {
         await chai.request(server).patch('/schemas/update/1')
-            .send(JSON.stringify({schema: validSchema}))
+			.set('content-type', 'application/json')
+            .send({schema: validSchema})
             .then((res) => {
                 expect(res).to.have.status(400);
                 expect(res.body.message).to.equal('the request was incomplete');
@@ -125,7 +139,8 @@ describe('on schema update request', () => {
     });
     it('should not update without schema', async () => {
         await chai.request(server).patch('/schemas/update/1')
-            .send(JSON.stringify({response:{name:'yin'}}))
+			.set('content-type', 'application/json')
+            .send({response:{name:'yin'}})
             .then((res) => {
                 expect(res).to.have.status(400);
                 expect(res.body.message).to.equal('the request was incomplete');
