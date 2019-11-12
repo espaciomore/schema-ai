@@ -47,6 +47,14 @@ describe('on invalid route request', () => {
             })
             .catch((err) => { throw err; });
     });
+    it('should not accept an invalid date', async () => {
+		await chai.request(server).get('/schemas/find?host=foo&endpoint=/bar&from=null&to=null')
+            .then((res) => {
+                expect(res).to.have.status(400);
+                expect(res.body.message).to.equal('the request could not be processed');
+            })
+            .catch((err) => { throw err; });
+    });
 });
 
 describe('on empty database request', () => {
